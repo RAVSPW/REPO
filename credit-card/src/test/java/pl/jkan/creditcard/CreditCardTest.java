@@ -6,22 +6,39 @@ import org.junit.Test;
 public class CreditCardTest {
     
     @Test
-    public void allowAssignLimit() {
-        //Arrange / Given
+    public void assignCreditLimitToCard() {
         CreditCard card = new CreditCard();
-        //Act / When
+        
         card.assignLimit(2000);
-        //Asser / Then
-        Assert.assertTrue(card.getBalance() == 2000);
+        
+        Assert.assertTrue(card.getLimit() == 2000);
     }
     
     @Test
-    public void allowWithdrawMoney() {
+    public void canBlockCredsitCard() {
         CreditCard card = new CreditCard();
-        card.assignLimit(2000);
-        
-        card.withdraw(200);
-        
-        Assert.assertEquals(1800, card.getBalance());
+        card.block();
+        Assert.assertTrue(card.isBlocked());
     }
+ 
+    @Test
+     public void withdrawedDecreaseAwolableFounds() {
+        CreditCard card = new CreditCard();
+        
+        card.assignLimit(2000);
+        card.withdraw(1000);
+        
+        Assert.assertTrue(card.getCountBalance() == 1000);
+    }
+    @Test
+    public void repayDebtTest(){
+        CreditCard card=new CreditCard();
+        
+         card.assignLimit(2000);
+         card.loan(1000);
+         card.repayDebt(500);
+         
+         Assert.assertTrue(card.getCountBalance() == 2500);
+    }
+    
 }
